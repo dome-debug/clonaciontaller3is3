@@ -1,7 +1,11 @@
-package grupo1;
+package grupo3;
 
 public class ServicioX {
-    public static boolean verificarLimite(double total) {
-        return total <= 5000;
+
+    public static double calcularIGV(double total) {
+        if (total < 0) {
+            throw new IllegalArgumentException("Total inválido");
+        }
+        return total * 1.18; // IGV = 18%
     }
 }

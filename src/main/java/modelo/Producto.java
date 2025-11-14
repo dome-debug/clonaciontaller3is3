@@ -11,7 +11,6 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    // Getters EXACTOS como pide el taller
     public String getNombre() { return nombre; }
     public double getPrecio() { return precio; }
     public int getCantidad() { return cantidad; }
