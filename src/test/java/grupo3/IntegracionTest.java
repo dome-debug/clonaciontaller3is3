@@ -49,18 +49,19 @@ public class IntegracionTest {
 
     //Tipo de prueba: "Combinacion de validaciones" con funcionalidad 4 VALIDAR CLIENTE
     @Test
-    void Combinacion_FuncionBaseFallaTest(){
-        List<Producto> productos = null
-    }
+    void Combinacion_TodosFallanTest(){
+        List<Producto> productos = null;
+        String nombreClienteInvalido = null;
+        double descuento = 10.0;
 
-    @Test
-    void Combinacion_FuncionSecundariaFallaTest(){
-        
-    }
+        Exception exceptionPedido = assertThrows(IllegalArgumentException.class, () -> {
+            Pedido.calculaTotalPedido(productos, descuento);
+        });
 
-    @Test
-    void Combinacion_TodasValidasTest(){
-        
+        boolean clienteValido = ServicioGrupo4.validarCliente(nombreClienteInvalido);
+
+        assertFalse(clienteValido);
+        assertEquals("Error: no hay productos en el pedido", exceptionPedido.getMessage());
     }
     
     //Tipo de prueba: "Error en funcion secundaria" con funcionalidad 5 VERIFICAR STOCK 
