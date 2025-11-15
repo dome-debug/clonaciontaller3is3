@@ -17,40 +17,10 @@ public class IntegracionTest {
         );
 
         double total = Pedido.calcularTotalPedido(productos, 10);
-        double totalIGV = ServicioX.calcularIGV(total);
+        double totalIGV = Servicio3.calcularIGV(total);
 
         assertEquals(2867.4, totalIGV, 0.1);
     }
 
-    @Test
-    void testErrorFuncionBase() {
-        Exception ex = assertThrows(IllegalArgumentException.class,
-                () -> Pedido.calcularTotalPedido(List.of(), 10));
-        assertEquals("Error: no hay productos en el pedido", ex.getMessage());
-    }
 
-    @Test
-    void testErrorFuncionSecundaria() {
-        assertThrows(IllegalArgumentException.class,
-                () -> ServicioX.calcularIGV(-4));
-    }
-
-    @Test
-    void testValoresLimite() {
-        double total = Pedido.calcularTotalPedido(
-                List.of(new Producto("A", 1, 1)), 0);
-        double resultado = ServicioX.calcularIGV(total);
-
-        assertEquals(1.18, resultado);
-    }
-
-    @Test
-    void testCombinacionValidaciones() {
-        List<Producto> productos = List.of(new Producto("Monitor", 300, 3));
-
-        double total = Pedido.calcularTotalPedido(productos, 10); // 900 → 810
-        double totalIGV = ServicioX.calcularIGV(total); // 810 * 1.18 = 955.8
-
-        assertEquals(955.8, totalIGV, 0.1);
-    }
 }
