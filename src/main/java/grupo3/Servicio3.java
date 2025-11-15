@@ -5,7 +5,6 @@ import modelo.Producto;
 public class Servicio3 {
 
     //FuncionSecundaria1
-    //VERIFICAR LIMITES
       
 
     //FuncionSecundaria2
@@ -25,10 +24,19 @@ public class Servicio3 {
     }
 
     //FuncionSecundaria4
+    public static boolean validarCliente(String nombre) {
+        if (nombre == null) {
+            return false;
+        }
+        String nombreLimpio = nombre.trim(); //limpia espacios al inicio y final
+        if(nombreLimpio.isEmpty()){
+            return false;
+        }
+        return true;
+    }
     
     
     //FunciónSecundaria5
-    //VERIFICAR STOCK
     public static boolean verificarStock(List<Producto> productos) {
         if (productos == null || productos.isEmpty()) {
             throw new IllegalArgumentException("Lista de productos invalida");
