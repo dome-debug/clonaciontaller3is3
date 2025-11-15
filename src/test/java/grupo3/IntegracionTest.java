@@ -31,7 +31,7 @@ public class IntegracionTest {
         double total = Pedido.calcularTotalPedido(productos, 0);
         assertTrue(total > 0);//Verificamos que la función base produzca un total positivo
 
-        boolean resultadoStock = ServicioX.verificarStock(productos);
+        boolean resultadoStock = Servicio3.verificarStock(productos);
         assertFalse(resultadoStock);
     }
 
