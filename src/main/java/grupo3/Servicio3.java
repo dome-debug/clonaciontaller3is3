@@ -4,13 +4,11 @@ import modelo.Producto;
 
 public class Servicio3 {
 
-    //funcion secundaria 1
-    public static boolean verificarLimite(double total){
-        double limite_pedido = 5000;
-        return total <= limite_pedido;
-    }    
+    //FuncionSecundaria1
+    //VERIFICAR LIMITES
+      
 
-    //FunciónSecundaria2
+    //FuncionSecundaria2
     public static boolean validarDescuento(double descuento) {
         if  (descuento < 0 || descuento > 50) {
             return false;
@@ -18,7 +16,7 @@ public class Servicio3 {
         return true;
     }
 
-    //FunciónSecundaria3
+    //FuncionSecundaria3
     public static double calcularIGV(double total) {
         if (total < 0) {
             throw new IllegalArgumentException("Total inválido");
@@ -26,6 +24,9 @@ public class Servicio3 {
         return total * 1.18; // IGV = 18%
     }
 
+    //FuncionSecundaria4
+    
+    
     //FunciónSecundaria5
     //VERIFICAR STOCK
     public static boolean verificarStock(List<Producto> productos) {
