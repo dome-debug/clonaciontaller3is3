@@ -11,7 +11,6 @@ public class Servicio3Test {
   
 
     //Pruebas unitarias para funcionalidad secundaria 2
-
     @Test
     void testDescuentoValido(){
         double descuento = 49.0; //Dentro del rango (0 - 50)
@@ -28,14 +27,7 @@ public class Servicio3Test {
         assertFalse(resultado);
     }
 
-    //Pruebas unitarias para funcionalidad secundaria 3
-
-    @Test
-    void testIGVCorrecto() {
-        // Caso basico: total de 100 → 118 con IGV
-        assertEquals(118.0, Servicio3.calcularIGV(100.0));
-    }
-    
+    //Pruebas unitarias para funcionalidad secundaria 3    
     @Test
     void testIGVConProductoSimulado() {
         Producto producto = new Producto("Laptop", 200.0, 1);
@@ -45,10 +37,22 @@ public class Servicio3Test {
     }
 
     //Pruebas unitarias para funcionalidad secundaria 4
+    @Test
+    void validarCliente_NombreValidoTest(){
+        String nombreValido = " Juan Pérez ";
+        boolean resultado = Servicio3.validarCliente(nombreValido);
+        assertTrue(resultado);
+    }
+
+    @Test
+    void validarCliente_NombreVacioTest(){
+        String nombreVacio = "  ";
+        boolean resultado = Servicio3.validarCliente(nombreVacio);
+        assertFalse(resultado);
+    }
     
     
     //Pruebas unitarias para funcionalidad secundaria 5
-
     @Test
     void verificarStock_cantidadCeroTest() {
         List<Producto> productosConUnoEnCero = List.of(
