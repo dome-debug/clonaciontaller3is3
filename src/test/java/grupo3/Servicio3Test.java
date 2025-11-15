@@ -27,4 +27,26 @@ public class Servicio3Test {
         assertEquals(236.0, totalConIGV);  // 200 * 1.18 = 236
     }
 
+    @Test
+    void verificarStock_cantidadCeroTest() {
+        List<Producto> productosConUnoEnCero = List.of(
+                new Producto("Mouse", 100.0, 2),
+                new Producto("Teclado", 50.0, 0),
+                new Producto("Monitor", 20.0, 1)
+        );
+        boolean resultado = ServicioX.verificarStock(productosConUnoEnCero);
+        assertFalse(resultado);
+    }
+
+    @Test
+    void verificarStock_cantidadValidaTest() {
+        List<Producto> productosConStockValido = List.of(
+                new Producto("Mouse", 100.0, 2),
+                new Producto("Teclado", 50.0, 1),
+                new Producto("Monitor", 20.0, 3)
+        );
+        boolean resultado = ServicioX.verificarStock(productosConStockValido);
+        assertTrue(resultado);
+    }
+
 }
