@@ -34,7 +34,7 @@ public class Servicio3Test {
                 new Producto("Teclado", 50.0, 0),
                 new Producto("Monitor", 20.0, 1)
         );
-        boolean resultado = ServicioX.verificarStock(productosConUnoEnCero);
+        boolean resultado = Servicio3.verificarStock(productosConUnoEnCero);
         assertFalse(resultado);
     }
 
@@ -45,7 +45,7 @@ public class Servicio3Test {
                 new Producto("Teclado", 50.0, 1),
                 new Producto("Monitor", 20.0, 3)
         );
-        boolean resultado = ServicioX.verificarStock(productosConStockValido);
+        boolean resultado = Servicio3.verificarStock(productosConStockValido);
         assertTrue(resultado);
     }
 
