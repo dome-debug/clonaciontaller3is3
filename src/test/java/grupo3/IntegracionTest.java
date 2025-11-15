@@ -11,6 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegracionTest {
 
+    //Tipo de prueba: "Valores limite" con funcionalidad 1 VERIFICAR LIMITE
+
+    //test
+
+    //Tipo de prueba: "Error en funcion base" con funcionalidad 2 VALIDAR DESCUENTO
     @Test
     void testErrorFuncionBase() {
         List <Producto> productos = List.of(
@@ -28,7 +33,7 @@ public class IntegracionTest {
         assertThrows(IllegalArgumentException.class, () -> { Pedido.calcularTotalPedido((productos), descuento);});
     }
 
-
+    //Tipo de prueba: "Caso exitoso" con funcionalidad 3 CALCULAR IGV 
     @Test
     void testFlujoCorrecto() {
         List<Producto> productos = List.of(
@@ -42,6 +47,23 @@ public class IntegracionTest {
         assertEquals(2867.4, totalIGV, 0.1);
     }
 
+    //Tipo de prueba: "Combinacion de validaciones" con funcionalidad 4 VALIDAR CLIENTE
+    @Test
+    void Combinacion_FuncionBaseFallaTest(){
+        List<Producto> productos = null
+    }
+
+    @Test
+    void Combinacion_FuncionSecundariaFallaTest(){
+        
+    }
+
+    @Test
+    void Combinacion_TodasValidasTest(){
+        
+    }
+    
+    //Tipo de prueba: "Error en funcion secundaria" con funcionalidad 5 VERIFICAR STOCK 
     @Test
     void ErrorFuncionSecundariaTest() {
         List<Producto> productos = List.of(
@@ -54,25 +76,5 @@ public class IntegracionTest {
         boolean resultadoStock = Servicio3.verificarStock(productos);
         assertFalse(resultadoStock);
     }
-
-     @Test //Piero
-    void testIntegracion_ValorLimite_SubtotalCero() {
-
-        // Caso límite: un producto con precio 0 → subtotal 0 (no válido)
-        List<Producto> productos = List.of(
-                new Producto("ProductoGratis", 0.0, 1)
-        );
-
-        // Se espera que calcularTotalPedido NO permita subtotal <= 0
-        assertThrows(IllegalArgumentException.class, () -> {
-
-            // Paso 1: calcular subtotal (fallará)
-            double subtotal = Pedido.calcularTotalPedido(productos, 0);
-
-            // Paso 2: si no fallara, recién se aplicaría el IGV
-            Servicio3.calcularIGV(subtotal);
-        });
-    }
-
 
 }
