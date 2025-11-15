@@ -35,4 +35,24 @@ public class IntegracionTest {
         assertFalse(resultadoStock);
     }
 
+     @Test //Piero
+    void testIntegracion_ValorLimite_SubtotalCero() {
+
+        // Caso límite: un producto con precio 0 → subtotal 0 (no válido)
+        List<Producto> productos = List.of(
+                new Producto("ProductoGratis", 0.0, 1)
+        );
+
+        // Se espera que calcularTotalPedido NO permita subtotal <= 0
+        assertThrows(IllegalArgumentException.class, () -> {
+
+            // Paso 1: calcular subtotal (fallará)
+            double subtotal = Pedido.calcularTotalPedido(productos, 0);
+
+            // Paso 2: si no fallara, recién se aplicaría el IGV
+            Servicio3.calcularIGV(subtotal);
+        });
+    }
+
+
 }

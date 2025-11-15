@@ -49,4 +49,25 @@ public class Servicio3Test {
         assertTrue(resultado);
     }
 
+    @Test //Piero
+    void testIGV_SinCompra_TotalCero() {
+        double total = 0.0;  // No se compró nada
+        double totalConIGV = Servicio3.calcularIGV(total);
+
+        assertEquals(0.0, totalConIGV); 
+    }
+
+    @Test //Piero
+    void verificarStock_cantidadNegativaTest() {
+        List<Producto> productos = List.of(
+                new Producto("Mouse", 100.0, 2),
+                new Producto("Teclado", 80.0, -1)  // cantidad negativa → inválida
+        );
+
+        boolean resultado = Servicio3.verificarStock(productos);
+
+        assertFalse(resultado);
+    }
+
+
 }
