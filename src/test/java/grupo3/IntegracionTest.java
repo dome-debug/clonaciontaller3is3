@@ -67,14 +67,13 @@ public class IntegracionTest {
     @Test
     void ErrorFuncionSecundariaTest() {
         List<Producto> productos = List.of(
-                new Producto("Laptop", 2500, 1),
-                new Producto("Mouse", 100, 0)
+                new Producto("Laptop", 2500.0, 1),
+                new Producto("Mouse", 100.0, 0)
         );
         double total = Pedido.calcularTotalPedido(productos, 0);
-        assertTrue(total > 0);//Verificamos que la función base produzca un total positivo
+        boolean stockValido = ServicioX.verificarStock(productos);
 
-        boolean resultadoStock = Servicio3.verificarStock(productos);
-        assertFalse(resultadoStock);
+        assertTrue(total > 0 && !stockValido);
     }
 
 }
