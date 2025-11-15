@@ -8,6 +8,22 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Servicio3Test {
 
     @Test
+    void testDescuentoValido(){
+        double descuento = 49.0; //Dentro del rango (0 - 50)
+        boolean resultado = Servicio3.validarDescuento(descuento);
+
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testDescuentoInvalido(){
+        double descuento = 51.0; //Fuera del rango (0 - 50)
+        boolean resultado = Servicio3.validarDescuento(descuento);
+
+        assertFalse(resultado);
+    }
+
+    @Test
     void testIGVCorrecto() {
         // Caso básico: total de 100 → 118 con IGV
         assertEquals(118.0, Servicio3.calcularIGV(100.0));

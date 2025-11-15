@@ -3,11 +3,31 @@ package grupo3;
 import base.Pedido;
 import modelo.Producto;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegracionTest {
+
+    @Test
+    void testErrorFuncionBase() {
+        List <Producto> productos = List.of(
+                new Producto("Laptop", 0.0, 1), //precio invalido en la funcion base
+                new Producto("Mouse", 0.0, 2) //precio invalido en la funcion base
+        );
+
+        double descuento = 10.0; //descuento valido
+
+        //validamos que el descuento sea valido
+        boolean descuentoValido = Servicio3.validarDescuento(descuento);
+        assertTrue(descuentoValido);
+
+        //la funcion base resulta en error porque el subtotal es 0
+        assertThrows(IllegalArgumentException.class, () -> { Pedido.calcularTotalPedido((productos), descuento);});
+    }
+
 
     @Test
     void testFlujoCorrecto() {

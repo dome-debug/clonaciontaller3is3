@@ -4,6 +4,14 @@ import modelo.Producto;
 
 public class Servicio3 {
 
+    //FunciónSecundaria2
+    public static boolean validarDescuento(double descuento) {
+        if  (descuento < 0 || descuento > 50) {
+            return false;
+        }
+        return true;
+    }
+
     //FunciónSecundaria3
     public static double calcularIGV(double total) {
         if (total < 0) {
