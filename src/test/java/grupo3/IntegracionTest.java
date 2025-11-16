@@ -12,12 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IntegracionTest {
 
     //Tipo de prueba: "Valores limite" con funcionalidad 1 VERIFICAR LIMITE
-
-    //test
+    @Test
+    void ValoresLimiteTest() {
+        // Lista de productos cuyo total = 5000
+        List<Producto> productos = List.of(
+                new Producto("Laptop", 2500.0, 2)   // 2500 * 2 = 5000
+        );
+        double total = Pedido.calcularTotalPedido(productos, 0);
+        boolean resultado = Servicio3.verificarLimite(total);
+         // Resultado esperado TRUE porque 5000 es el limite permitido
+        assertTrue(resultado);
+    }
 
     //Tipo de prueba: "Error en funcion base" con funcionalidad 2 VALIDAR DESCUENTO
     @Test
-    void testErrorFuncionBase() {
+    void ErrorFuncionBaseTest() {
         List <Producto> productos = List.of(
                 new Producto("Laptop", 0.0, 1), //precio invalido en la funcion base
                 new Producto("Mouse", 0.0, 2) //precio invalido en la funcion base
@@ -35,7 +44,7 @@ public class IntegracionTest {
 
     //Tipo de prueba: "Caso exitoso" con funcionalidad 3 CALCULAR IGV 
     @Test
-    void testFlujoCorrecto() {
+    void FlujoCorrectoTest() {
         List<Producto> productos = List.of(
                 new Producto("Laptop", 2500, 1),
                 new Producto("Mouse", 100, 2)
