@@ -8,11 +8,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Servicio3Test {
 
     //Pruebas Unitarias para funcionalidad secundaria 1
-  
+    @Test
+    void verificarLimiteValidoTest() {
+        double totalValido = 5000.00; 
+        assertTrue(Servicio3.verificarLimite(totalValido));
+    }
+    
+    @Test
+    void verificarLimiteExcedidoTest() {
+        double totalExcedido = 5000.01; 
+        assertFalse(Servicio3.verificarLimite(totalExcedido));
+    } 
 
     //Pruebas unitarias para funcionalidad secundaria 2
     @Test
-    void testDescuentoValido(){
+    void descuentoValidoTest(){
         double descuento = 49.0; //Dentro del rango (0 - 50)
         boolean resultado = Servicio3.validarDescuento(descuento);
 
@@ -20,7 +30,7 @@ public class Servicio3Test {
     }
 
     @Test
-    void testDescuentoInvalido(){
+    void descuentoInvalidoTest(){
         double descuento = 51.0; //Fuera del rango (0 - 50)
         boolean resultado = Servicio3.validarDescuento(descuento);
 
