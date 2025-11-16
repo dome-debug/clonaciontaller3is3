@@ -55,7 +55,7 @@ public class IntegracionTest {
         double descuento = 10.0;
 
         Exception exceptionPedido = assertThrows(IllegalArgumentException.class, () -> {
-            Pedido.calculaTotalPedido(productos, descuento);
+            Pedido.calcularTotalPedido(productos, descuento);
         });
 
         boolean clienteValido = Servicio3.validarCliente(nombreClienteInvalido);
@@ -72,7 +72,7 @@ public class IntegracionTest {
                 new Producto("Mouse", 100.0, 0)
         );
         double total = Pedido.calcularTotalPedido(productos, 0);
-        boolean stockValido = ServicioX.verificarStock(productos);
+        boolean stockValido = Servicio3.verificarStock(productos);
 
         assertTrue(total > 0 && !stockValido);
     }
