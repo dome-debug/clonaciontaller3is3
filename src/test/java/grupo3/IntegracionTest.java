@@ -58,7 +58,7 @@ public class IntegracionTest {
             Pedido.calculaTotalPedido(productos, descuento);
         });
 
-        boolean clienteValido = ServicioGrupo4.validarCliente(nombreClienteInvalido);
+        boolean clienteValido = Servicio3.validarCliente(nombreClienteInvalido);
 
         assertFalse(clienteValido);
         assertEquals("Error: no hay productos en el pedido", exceptionPedido.getMessage());
