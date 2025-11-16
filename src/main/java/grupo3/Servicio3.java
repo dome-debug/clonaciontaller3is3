@@ -5,7 +5,10 @@ import modelo.Producto;
 public class Servicio3 {
 
     //FuncionSecundaria1
-      
+    public static boolean verificarLimite(double total){
+        double limite_pedido = 5000;
+        return total <= limite_pedido;
+    }
 
     //FuncionSecundaria2
     public static boolean validarDescuento(double descuento) {
