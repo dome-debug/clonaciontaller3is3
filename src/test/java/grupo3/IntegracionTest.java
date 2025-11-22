@@ -3,60 +3,49 @@ package grupo3;
 import base.Pedido;
 import modelo.Producto;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegracionTest {
 
-    //Tipo de prueba: "Valores limite" con funcionalidad 1 VERIFICAR LIMITE
     @Test
     void ValoresLimiteTest() {
-        // Lista de productos cuyo total = 5000
         List<Producto> productos = List.of(
-                new Producto("Laptop", 2500.0, 2)   // 2500 * 2 = 5000
+                new Producto("Laptop", 2500.0, 2, "SKU1", "Tecnologia", true, true)
         );
         double total = Pedido.calcularTotalPedido(productos, 0);
         boolean resultado = Servicio3.verificarLimite(total);
-         // Resultado esperado TRUE porque 5000 es el limite permitido
         assertTrue(resultado);
     }
 
-    //Tipo de prueba: "Error en funcion base" con funcionalidad 2 VALIDAR DESCUENTO
     @Test
     void ErrorFuncionBaseTest() {
-        List <Producto> productos = List.of(
-                new Producto("Laptop", 0.0, 1), //precio invalido en la funcion base
-                new Producto("Mouse", 0.0, 2) //precio invalido en la funcion base
+        List<Producto> productos = List.of(
+                new Producto("Laptop", 0.0, 1, "SKU2", "Tecnologia", true, true),
+                new Producto("Mouse", 0.0, 2, "SKU3", "Tecnologia", true, true)
         );
 
-        double descuento = 10.0; //descuento valido
-
-        //validamos que el descuento sea valido
+        double descuento = 10.0;
         boolean descuentoValido = Servicio3.validarDescuento(descuento);
         assertTrue(descuentoValido);
 
-        //la funcion base resulta en error porque el subtotal es 0
-        assertThrows(IllegalArgumentException.class, () -> { Pedido.calcularTotalPedido((productos), descuento);});
+        assertThrows(IllegalArgumentException.class, () -> {
+            Pedido.calcularTotalPedido(productos, descuento);
+        });
     }
 
-    //Tipo de prueba: "Caso exitoso" con funcionalidad 3 CALCULAR IGV 
     @Test
     void FlujoCorrectoTest() {
         List<Producto> productos = List.of(
-                new Producto("Laptop", 2500, 1),
-                new Producto("Mouse", 100, 2)
+                new Producto("Laptop", 2500, 1, "SKU4", "Tecnologia", true, true),
+                new Producto("Mouse", 100, 2, "SKU5", "Tecnologia", true, true)
         );
 
         double total = Pedido.calcularTotalPedido(productos, 10);
         double totalIGV = Servicio3.calcularIGV(total);
-
         assertEquals(2867.4, totalIGV, 0.1);
     }
 
-    //Tipo de prueba: "Combinacion de validaciones" con funcionalidad 4 VALIDAR CLIENTE
     @Test
     void Combinacion_TodosFallanTest(){
         List<Producto> productos = null;
@@ -68,22 +57,57 @@ public class IntegracionTest {
         });
 
         boolean clienteValido = Servicio3.validarCliente(nombreClienteInvalido);
-
         assertFalse(clienteValido);
         assertEquals("Error: no hay productos en el pedido", exceptionPedido.getMessage());
     }
-    
-    //Tipo de prueba: "Error en funcion secundaria" con funcionalidad 5 VERIFICAR STOCK 
+
     @Test
     void ErrorFuncionSecundariaTest() {
         List<Producto> productos = List.of(
-                new Producto("Laptop", 2500.0, 1),
-                new Producto("Mouse", 100.0, 0)
+                new Producto("Laptop", 2500.0, 1, "SKU6", "Tecnologia", true, true),
+                new Producto("Mouse", 100.0, 0, "SKU7", "Tecnologia", true, true)
         );
         double total = Pedido.calcularTotalPedido(productos, 0);
         boolean stockValido = Servicio3.verificarStock(productos);
-
         assertTrue(total > 0 && !stockValido);
     }
 
+    @Test
+    void testFlujoExitoso() {
+        Pedido pedido = new Pedido();
+        Producto producto = new Producto("Laptop", 2000.0, 5, "SKU101", "Tecnologia", true, true);
+
+        boolean agregado = pedido.agregarProducto(producto, 3);
+        boolean stockValido = pedido.validarStock();
+        boolean descuentoValido = Servicio3.validarDescuentoAplicable(producto, 20.0);
+
+        assertTrue(agregado);
+        assertTrue(stockValido);
+        assertTrue(descuentoValido);
+    }
+
+    @Test
+    void testErrorDuplicado() {
+        Pedido pedido = new Pedido();
+        Producto producto = new Producto("Mouse", 50.0, 10, "SKU102", "Tecnologia", true, true);
+
+        pedido.agregarProducto(producto, 2);
+        boolean duplicado = pedido.agregarProducto(producto, 1);
+
+        assertFalse(duplicado);
+        assertTrue(pedido.validarStock());
+    }
+
+    @Test
+    void testStockInvalido() {
+        Pedido pedido = new Pedido();
+        Producto sinStock = new Producto("Teclado", 100.0, 0, "SKU103", "Tecnologia", true, true);
+
+        pedido.agregarProducto(sinStock, 0);
+        boolean stockValido = pedido.validarStock();
+        boolean descuentoValido = Servicio3.validarDescuentoAplicable(sinStock, 10.0);
+
+        assertFalse(stockValido);
+        assertTrue(descuentoValido);
+    }
 }

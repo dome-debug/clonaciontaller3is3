@@ -1,45 +1,41 @@
 package grupo3;
-import java.util.List;
+
 import modelo.Producto;
+import java.util.List;
+import java.util.Set;
 
 public class Servicio3 {
 
-    //FuncionSecundaria1
     public static boolean verificarLimite(double total){
         double limite_pedido = 5000;
         return total <= limite_pedido;
     }
 
-    //FuncionSecundaria2
     public static boolean validarDescuento(double descuento) {
-        if  (descuento < 0 || descuento > 50) {
+        if (descuento < 0 || descuento > 50) {
             return false;
         }
         return true;
     }
 
-    //FuncionSecundaria3
     public static double calcularIGV(double total) {
         if (total < 0) {
             throw new IllegalArgumentException("Total inválido");
         }
-        return total * 1.18; // IGV = 18%
+        return total * 1.18;
     }
 
-    //FuncionSecundaria4
     public static boolean validarCliente(String nombre) {
         if (nombre == null) {
             return false;
         }
-        String nombreLimpio = nombre.trim(); //limpia espacios al inicio y final
+        String nombreLimpio = nombre.trim();
         if(nombreLimpio.isEmpty()){
             return false;
         }
         return true;
     }
-    
-    
-    //FunciónSecundaria5
+
     public static boolean verificarStock(List<Producto> productos) {
         if (productos == null || productos.isEmpty()) {
             throw new IllegalArgumentException("Lista de productos invalida");
@@ -56,4 +52,7 @@ public class Servicio3 {
         return true;
     }
 
+    public static boolean validarDescuentoAplicable(Producto p, double porcentaje) {
+        return p.isDescuentoAplicable() && porcentaje >= 0 && porcentaje <= 50;
+    }
 }
