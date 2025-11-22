@@ -10,18 +10,19 @@ public class Producto {
     private boolean descuentoAplicable;
 
     public Producto(String nombre, double precio, int cantidad, String sku,
-                    String categoria, boolean esActivo, boolean descuentoAplicable) {
-        if (precio < 0 || cantidad < 0) {
-            throw new IllegalArgumentException("Precio y cantidad deben ser >= 0");
-        }
+                String categoria, boolean esActivo, boolean descuentoAplicable) {
+
+        this.precio = precio < 0 ? 0 : precio;
+    
+        this.cantidad = cantidad < 0 ? 0 : cantidad;
+    
         this.nombre = nombre;
-        this.precio = precio;
-        this.cantidad = cantidad;
         this.sku = sku;
         this.categoria = categoria;
         this.esActivo = esActivo;
         this.descuentoAplicable = descuentoAplicable;
     }
+
 
     public String getNombre() { return nombre; }
     public double getPrecio() { return precio; }
