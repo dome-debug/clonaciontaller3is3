@@ -48,12 +48,13 @@ public class Pedido {
         }
     }
 
-    public boolean validarStock() {
-        if (detallesPedido.isEmpty()) {
-            return true;
-        }
-        return detallesPedido.stream().allMatch(p -> p.getCantidad() > 0);
+    public boolean validarStock(int cantidad) {
+    if (cantidad <= 0) {
+        return false;
     }
+        return true;
+    }
+
 
     public List<Producto> getDetallesPedido() {
         return new ArrayList<>(detallesPedido);
